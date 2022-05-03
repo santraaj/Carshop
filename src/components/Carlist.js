@@ -3,6 +3,7 @@ import { AgGridReact } from 'ag-grid-react'
 import'ag-grid-community/dist/styles/ag-grid.css'
 import'ag-grid-community/dist/styles/ag-theme-material.css';
 import Button from '@mui/material/Button';
+import Addcar from './Addcar';
 
 export default function Carlist() {
     const [cars, setCars] = useState([]);
@@ -37,20 +38,23 @@ export default function Carlist() {
     ]
 
     return (
-      <div className='ag-theme-material'
-      style={{
-        height: '700px',
-        width: '100%',
-        margin: 'auto'}}
-      >
-        <AgGridReact
-          columnDefs={columns}
-          rowData={cars}
-          rowSelection='single'
-          ref={gridRef}
-          onGridReady={ params => gridRef.current = params.api }
+      <div>
+        <Addcar />
+        <div className='ag-theme-material'
+        style={{
+          height: '700px',
+          width: '100%',
+          margin: 'auto'}}
         >
-        </AgGridReact>
+          <AgGridReact
+            columnDefs={columns}
+            rowData={cars}
+            rowSelection='single'
+            ref={gridRef}
+            onGridReady={ params => gridRef.current = params.api }
+          >
+          </AgGridReact>
+        </div>
       </div>  
     );
 }
