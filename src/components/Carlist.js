@@ -4,6 +4,7 @@ import'ag-grid-community/dist/styles/ag-grid.css'
 import'ag-grid-community/dist/styles/ag-theme-material.css';
 import Button from '@mui/material/Button';
 import Addcar from './Addcar';
+import Editcar from './Editcar';
 
 export default function Carlist() {
     const [cars, setCars] = useState([]);
@@ -24,6 +25,18 @@ export default function Carlist() {
         .catch(err => console.error(err))
       }
     }
+
+    const saveCar = (car) => {
+      fetch('https://carstockrest.herokuapp.com/cars', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(car)
+      })
+      .then(res => fetchData())
+      .catch(err => console.error(err))
+    }
     //mandatory params: columns and data?
 
     const columns = [
@@ -33,13 +46,14 @@ export default function Carlist() {
       { headerName: 'Fuel', field: 'fuel', sortable: true, filter: true },
       { headerName: 'Year', field: 'year', sortable: true, filter: true },
       { headerName: 'Price', field: 'price', sortable: true, filter: true },
+      { maxWidth: 100, cellRenderer: Editcar, cellRendererParams: { car.data } },
       { headerName: '', maxWidth: 100, field: '_links.self.href', 
       cellRenderer: (params) => <Button color="error" size="small" onClick={() => deleteCar(params.value)}>Delete</Button> }
     ]
 
     return (
       <div>
-        <Addcar />
+        <Addcar saveCar={saveCar} />
         <div className='ag-theme-material'
         style={{
           height: '700px',

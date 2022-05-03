@@ -6,13 +6,14 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function Addcar(props) {
+export default function Editcar(props) {
   const [open, setOpen] = React.useState(false);
   const [car, setCar] = React.useState({
       brand: '', model: '', color: '', fuel: '', year: '', price: ''
   })
 
   const handleClickOpen = () => {
+    console.log(props.car);
     setOpen(true);
     };
 
@@ -31,11 +32,11 @@ export default function Addcar(props) {
 
   return(
     <div>
-      <Button style={{margin: 10}} variant="outlined" onClick={handleClickOpen}>
-        Add Car
+      <Button onClick={handleClickOpen}>
+        Edit
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>New Car</DialogTitle>
+        <DialogTitle>Edit Car</DialogTitle>
             <DialogContent>
                 <TextField
                     autoFocus
